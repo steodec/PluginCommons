@@ -1,33 +1,44 @@
 plugins {
     id 'java'
-    id 'maven-publish'
 }
 
-group = 'com.humbrain'
-version = '1.0'
+group = 'com.github.steodec' // requis par JitPack
+version = '1.0.0' // doit correspondre au tag GitHub (ex : v1.0.0)
+
+archivesBaseName = 'PluginCommons' // nom de l'artifact sur JitPack
 
 repositories {
     mavenCentral()
+
+    // API Bukkit / Spigot
     maven {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
+
+    // API Paper
     maven {
         name = 'papermc'
         url = 'https://repo.papermc.io/repository/maven-public/'
     }
+
+    // Adventure / Kyori
     maven {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/repositories/snapshots/'
     }
 }
+
 java {
-    sourceCompatibility = JavaVersion.VERSION_21 // ou 21 selon ta cible
+    sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 }
+
 dependencies {
-    // APIs Bukkit et Adventure
+    // Bukkit / Paper API
     compileOnly 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT'
+
+    // Adventure
     compileOnly 'net.kyori:adventure-api:4.14.0'
     compileOnly 'net.kyori:adventure-text-serializer-legacy:4.14.0'
 
@@ -36,6 +47,7 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.7.3'
     implementation 'com.mysql:mysql-connector-j:8.3.0'
 
+    // Tests
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
