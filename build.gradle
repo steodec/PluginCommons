@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group = 'com.humbrain'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+}
+java {
+    sourceCompatibility = JavaVersion.VERSION_21 // ou 21 selon ta cible
+    targetCompatibility = JavaVersion.VERSION_21
+}
+dependencies {
+    // APIs Bukkit et Adventure
+    compileOnly 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT'
+    compileOnly 'net.kyori:adventure-api:4.14.0'
+    compileOnly 'net.kyori:adventure-text-serializer-legacy:4.14.0'
+
+    // JDBC Drivers
+    implementation 'org.xerial:sqlite-jdbc:3.45.2.0'
+    implementation 'org.postgresql:postgresql:42.7.3'
+    implementation 'com.mysql:mysql-connector-j:8.3.0'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
