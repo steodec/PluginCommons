@@ -110,4 +110,12 @@ public class ConfigUtil {
             return 0;
         }
     }
+
+    public static String stringWithoutColor(String input) {
+        if (input == null) return "";
+        return input.replaceAll("&[0-9a-fk-or]", "")
+                .replaceAll("§[0-9a-fk-or]", "")
+                .replaceAll("&#([A-Fa-f0-9]{6})", "")
+                .trim();
+    }
 }
