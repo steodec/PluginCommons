@@ -2,8 +2,11 @@ package com.humbrain.plugincommons.utils;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +67,47 @@ public class ConfigUtil {
         } catch (IllegalArgumentException e) {
             plugin.getLogger().warning("Material " + materialName + " not found, defaulting to AIR.");
             return Material.AIR;
+        }
+    }
+
+    public static ItemStack getMaterial(String path, boolean withCustomModelData) {
+        String materialName = plugin.getConfig().getString(path);
+        String[] meterialCats = path.split("\\.");
+        String materialCat = null;
+        if (meterialCats.length > 1) {
+            // unset the last part of the path
+            materialCat = String.join(".", Arrays.copyOf(meterialCats, meterialCats.length - 1));
+        }
+        String customModelData = null;
+        if (plugin.getConfig().getString(materialCat + ".customModelData") != null) {
+            customModelData = plugin.getConfig().getString(materialCat + ".customModelData");
+        }
+        if (materialName == null || materialName.isEmpty()) {
+            return new ItemStack(Material.AIR);
+        }
+        try {
+            Material mat = Material.valueOf(materialName.toUpperCase());
+            ItemStack item = new ItemStack(mat);
+            if (customModelData != null && !customModelData.isEmpty()) {
+                ItemMeta itemMeta = item.getItemMeta();
+                itemMeta.setCustomModelData(Integer.parseInt(customModelData));
+                item.setItemMeta(itemMeta);
+                return item;
+            } else {
+                return item;
+            }
+        } catch (IllegalArgumentException e) {
+            plugin.getLogger().warning("Material " + materialName + " not found, defaulting to AIR.");
+            return new ItemStack(Material.AIR);
+        }
+    }
+
+    public static int getNumber(String path) {
+        if (plugin.getConfig().isInt(path)) {
+            return plugin.getConfig().getInt(path);
+        } else {
+            plugin.getLogger().warning("Value at path " + path + " is not an integer, defaulting to 0.");
+            return 0;
         }
     }
 }
