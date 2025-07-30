@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.github.steodec' // requis par JitPack
-version = '1.0.1'
+version = '1.0.3'
 
 archivesBaseName = 'PluginCommons' // nom de l'artifact sur JitPack
 

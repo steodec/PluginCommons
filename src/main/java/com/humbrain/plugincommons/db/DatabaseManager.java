@@ -1,10 +1,8 @@
 package com.humbrain.plugincommons.db;
 
 import com.humbrain.plugincommons.db.provider.DatabaseProvider;
-import com.humbrain.plugincommons.utils.PluginLogger;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.sql.Connection;
 
 public class DatabaseManager {
@@ -12,13 +10,14 @@ public class DatabaseManager {
     private static DatabaseProvider provider;
     private static Connection connection;
 
-    public static void init(FileConfiguration config, File pluginDataFolder) {
+
+    public static void init(JavaPlugin plugin) {
         try {
-            provider = DatabaseFactory.getProvider(config, pluginDataFolder);
+            provider = DatabaseFactory.getProvider(plugin.getConfig(), plugin.getDataFolder());
             connection = provider.connect();
-            PluginLogger.success("Connection à la bdd réussie");
+            plugin.getLogger().info("Connection à la bdd réussie");
         } catch (Exception e) {
-            PluginLogger.error("Échec de la connexion à la base de données : " + e.getMessage());
+            plugin.getLogger().info("Échec de la connexion à la base de données : " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
