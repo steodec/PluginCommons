@@ -22,7 +22,9 @@ public class TextUtil {
     }
 
     public static String parseString(String text) {
-        return translateHexColorCodes(text).replace('&', '§');
+        text = translateHexColorCodes(text);
+        if (text == null) return ""; // ✅ sécurité NPE
+        return text.replace('&', '§');
     }
 
     public static List<String> parseListString(List<String> text) {
