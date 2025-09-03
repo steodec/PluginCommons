@@ -28,11 +28,14 @@ public class ItemUtils {
             }
             String blockKey = "block.minecraft." + id.toLowerCase();
             String itemKey = "item.minecraft." + id.toLowerCase();
+            String entityKey = "entity.minecraft." + id.toLowerCase();
 
             // fallback
             if (TRANSLATION_MAP.containsKey(blockKey)) {
                 return TRANSLATION_MAP.get(blockKey);
-            } else return TRANSLATION_MAP.getOrDefault(itemKey, id);
+            } else if (TRANSLATION_MAP.containsKey(itemKey)) {
+                return TRANSLATION_MAP.get(itemKey);
+            } else return TRANSLATION_MAP.getOrDefault(entityKey, id);
         } catch (Exception e) {
             e.printStackTrace();
             return id;
