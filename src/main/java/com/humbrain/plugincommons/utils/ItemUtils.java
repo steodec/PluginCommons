@@ -9,15 +9,14 @@ import org.bukkit.util.io.BukkitObjectOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ItemUtils {
 
-    private static final String TRANSLATION_URL = "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/refs/heads/1.21.4/assets/minecraft/lang/fr_fr.json";
     private static final Map<String, String> TRANSLATION_MAP = new ConcurrentHashMap<>();
     private static boolean loaded = false;
 
@@ -31,10 +30,10 @@ public class ItemUtils {
             String entityKey = "entity.minecraft." + id.toLowerCase();
 
             // fallback
-            if (TRANSLATION_MAP.containsKey(blockKey)) {
-                return TRANSLATION_MAP.get(blockKey);
-            } else if (TRANSLATION_MAP.containsKey(itemKey)) {
+            if (TRANSLATION_MAP.containsKey(itemKey)) {
                 return TRANSLATION_MAP.get(itemKey);
+            } else if (TRANSLATION_MAP.containsKey(blockKey)) {
+                return TRANSLATION_MAP.get(blockKey);
             } else return TRANSLATION_MAP.getOrDefault(entityKey, id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,8 +42,10 @@ public class ItemUtils {
     }
 
     private static void loadTranslationMap() throws Exception {
-        URL url = new URL(TRANSLATION_URL);
-        try (InputStreamReader reader = new InputStreamReader(url.openStream(), StandardCharsets.UTF_8)) {
+        try (InputStreamReader reader = new InputStreamReader(
+                Objects.requireNonNull(ItemUtils.class.getResourceAsStream("/fr_fr.json")),
+                StandardCharsets.UTF_8
+        )) {
             Gson gson = new Gson();
             Map<String, String> map = gson.fromJson(reader, new TypeToken<Map<String, String>>() {
             }.getType());
