@@ -1,6 +1,6 @@
-package com.humbrain.plugincommons.db;
+package fr.smeltblock.plugincommons.db;
 
-import com.humbrain.plugincommons.db.provider.DatabaseProvider;
+import fr.smeltblock.plugincommons.db.provider.DatabaseProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;

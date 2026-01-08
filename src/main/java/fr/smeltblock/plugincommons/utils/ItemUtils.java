@@ -1,4 +1,4 @@
-package com.humbrain.plugincommons.utils;
+package fr.smeltblock.plugincommons.utils;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;

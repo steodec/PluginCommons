@@ -1,4 +1,4 @@
-package com.humbrain.plugincommons.utils;
+package fr.smeltblock.plugincommons.utils;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;

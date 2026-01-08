@@ -1,4 +1,4 @@
-package com.humbrain.plugincommons.db;
+package fr.smeltblock.plugincommons.db;
 
 public enum DatabaseType {
     MYSQL,

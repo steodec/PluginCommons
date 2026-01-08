@@ -1,4 +1,4 @@
-package com.humbrain.plugincommons.db.provider;
+package fr.smeltblock.plugincommons.db.provider;
 
 import java.sql.Connection;
 
