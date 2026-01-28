@@ -1,6 +1,6 @@
 package fr.smeltblock.plugincommons.db;
 
-import com.humbrain.plugincommons.db.provider.*;
+import fr.smeltblock.plugincommons.db.provider.*;
 import fr.smeltblock.plugincommons.db.provider.DatabaseProvider;
 import fr.smeltblock.plugincommons.db.provider.MySQLProvider;
 import fr.smeltblock.plugincommons.db.provider.PostgreSQLProvider;

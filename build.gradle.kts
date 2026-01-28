@@ -1,13 +1,10 @@
 plugins {
     id("java")
+    id("maven-publish")
 }
 
-group = "fr.smeltblock.plugincommons" // requis par JitPack
+group = "fr.smeltblock"
 version = "1.0.8"
-
-base {
-    archivesName.set("PluginCommons") // nom de l'artifact sur JitPack
-}
 
 repositories {
     mavenCentral()
@@ -48,10 +45,6 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.45.2.0")
     implementation("org.postgresql:postgresql:42.7.3")
     implementation("com.mysql:mysql-connector-j:8.3.0")
-
-    // Tests
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 tasks.test {
@@ -61,18 +54,15 @@ tasks.test {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-
-            artifact(tasks.named("shadowJar")) {
-                classifier = null // Pour qu’il s’appelle .jar
-            }
+            from(components["java"]) // Publier le composant Java
 
             groupId = "fr.smeltblock.plugincommons"
-            artifactId = "IslandStack"
+            artifactId = "PluginCommons"
             version = project.version.toString()
 
             pom {
-                name.set("PluginComon")
-                description.set("Plugin Minecraft PluginCommon")
+                name.set("PluginCommons") // Corrigé
+                description.set("Plugin Minecraft PluginCommons")
                 url.set("https://maven.humbrain.com/")
             }
         }
